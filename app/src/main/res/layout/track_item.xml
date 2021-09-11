@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp">
+
+    <ImageView
+        android:id="@+id/image_view_album_cover"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:contentDescription="@string/album_cover_image"
+        android:src="@drawable/ic_album_placeholder" />
+
+    <androidx.appcompat.widget.LinearLayoutCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"
+        android:layout_toEndOf="@id/image_view_album_cover"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view_track_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@id/image_view_album_cover"
+            android:ellipsize="end"
+            android:fontFamily="sans-serif"
+            android:maxLines="1"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/text_view_track_artists"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/text_view_track_name"
+            android:ellipsize="end"
+            android:maxLines="1" />
+
+    </androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>

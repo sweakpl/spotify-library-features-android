@@ -1,0 +1,37 @@
+<resources>
+    <string name="app_name">Spotify Library Features</string>
+    <string name="energy">Energy</string>
+    <string name="danceability">Danceability</string>
+    <string name="valence">Valence</string>
+    <string name="acousticness">Acousticness</string>
+    <string name="speechiness">Speechiness</string>
+    <string name="liveness">Liveness</string>
+    <string name="instrumentalness">Instrumentalness</string>
+    <string name="tempo_value">Tempo: %1$d BPM</string>
+    <string name="loudness_value">Loudness: %1$d dB</string>
+    <string name="percentage_value">%1$d%%</string>
+    <string name="song_and_artists">%1$s by: %2$s</string>
+    <string name="spotify_icon">Spotify icon</string>
+    <string name="login_prompt">Get to know Your Spotify library\nmore than ever</string>
+    <string name="authorize">Authorize</string>
+    <string name="your_library">Your library</string>
+    <string name="tempo">Tempo</string>
+    <string name="loudness">Loudness</string>
+    <string name="features_info">Features info</string>
+    <string name="reload">Reload</string>
+    <string name="source_medium">Source <a href="https://medium.com/@boplantinga/what-do-spotifys-audio-features-tell-us-about-this-year-s-eurovision-song-contest-66ad188e112a">medium.com</a></string>
+    <string name="tempo_description">The overall estimated tempo of a track in beats per minute (BPM). In musical terminology, tempo is the speed or pace of a given piece and derives directly from the average beat duration.</string>
+    <string name="loudness_description">The overall loudness of a track in decibels (dB). Loudness values are averaged across the entire track. Values typically range between -60 and 0 dB.</string>
+    <string name="energy_description">Energy represents a perceptual measure of intensity and activity. Typically, energetic tracks feel fast, loud, and noisy.</string>
+    <string name="danceability_description">Danceability describes how suitable a track is for dancing based on a combination of musical elements including tempo, rhythm stability, beat strength, and overall regularity.</string>
+    <string name="valence_description">A measure describing the musical positiveness conveyed by a track. Tracks with high valence sound more positive (e.g. happy, cheerful, euphoric), while tracks with low valence sound more negative (e.g. sad, depressed, angry).</string>
+    <string name="acousticness_description">A measure of whether the track is acoustic.</string>
+    <string name="speechiness_description">Speechiness detects the presence of spoken words in a track. The more exclusively speech-like the recording (e.g. talk show, audio book, poetry), the closer to 100%.</string>
+    <string name="liveness_description">Detects the presence of an audience in the recording. Higher liveness percentage represent an increased probability that the track was performed live.</string>
+    <string name="instrumentalness_description">Predicts whether a track contains no vocals. The closer the instrumentalness percentage is to 100%, the greater likelihood the track contains no vocal content.</string>
+    <string name="refresh">Refresh</string>
+    <string name="refresh_disclaimer">Refreshing Your library and its features requires reauthorizing Your account. Make sure the internet connection is enabled.</string>
+    <string name="error">Error</string>
+    <string name="unknown_error">Unknown error</string>
+    <string name="album_cover_image">Album cover image</string>
+</resources>

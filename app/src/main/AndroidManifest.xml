@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.sweak.spotifylibraryfeatures">
+
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <application
+        android:name="com.sweak.spotifylibraryfeatures.QuickSpotifyApplication"
+        android:allowBackup="true"
+        android:icon="@mipmap/spotify_library_features_icon"
+        android:label="@string/app_name"
+        android:supportsRtl="true"
+        android:theme="@style/Theme.QuickSpotify">
+        <activity
+            android:name="com.sweak.spotifylibraryfeatures.features.main.MainActivity"
+            android:exported="true"
+            android:launchMode="singleTop">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.sweak.spotifylibraryfeatures.features.login.LoginActivity" />
+        <activity android:name="com.sweak.spotifylibraryfeatures.features.trackfeatures.FeaturesActivity" />
+    </application>
+
+</manifest>

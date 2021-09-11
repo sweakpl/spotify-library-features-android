@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/drawable/green_circular_button.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/drawable/ic_help.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/drawable/ic_launcher_background.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/drawable/ic_refresh.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/drawable/progress_bar.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/activity_features.xml" value="0.2" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/activity_main.xml" value="0.3255208333333333" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/error_dialog.xml" value="0.11927083333333334" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/features_info_dialog.xml" value="0.244136460554371" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/refresh_dialog.xml" value="0.2341485507246377" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/layout/track_item.xml" value="0.536" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/menu/features_info_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/QuickSpotify/app/src/main/res/menu/reload_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/drawable/green_circular_button.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/drawable/ic_help.xml" value="0.2703125" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/drawable/ic_launcher_background.xml" value="0.13541666666666666" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/drawable/progress_bar.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout-v21/activity_features.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/activity_features.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/activity_login.xml" value="0.176" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/activity_main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/error_dialog.xml" value="0.2296195652173913" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/features_info_dialog.xml" value="0.2296195652173913" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/reauthorize_dialog.xml" value="0.2296195652173913" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/layout/track_item.xml" value="0.264" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/menu/features_info_menu.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/Lenovo/Desktop/Android/Spotify Library Features/app/src/main/res/menu/reload_menu.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="11" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

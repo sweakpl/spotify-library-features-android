@@ -1,0 +1,20 @@
+<resources>
+
+    <style name="Theme.QuickSpotify" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/ui_green</item>
+        <item name="colorPrimaryVariant">@color/ui_grey</item>
+        <item name="colorOnPrimary">@color/black</item>
+
+        <item name="colorSecondary">@color/ui_green_secondary</item>
+        <item name="colorSecondaryVariant">@color/ui_grey</item>
+        <item name="colorOnSecondary">@color/black</item>
+
+        <item name="android:windowBackground">@color/black</item>
+    </style>
+
+    <style name="CircularDeterminateProgressBar">
+        <item name="android:indeterminateOnly">false</item>
+        <item name="android:progressDrawable">@drawable/progress_bar</item>
+    </style>
+
+</resources>
