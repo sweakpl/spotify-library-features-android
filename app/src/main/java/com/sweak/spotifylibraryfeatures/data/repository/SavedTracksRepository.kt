@@ -9,6 +9,4 @@ interface SavedTracksRepository {
 
     @ExperimentalCoroutinesApi
     fun getSavedTracks(forceRefresh: Boolean): Flow<Resource<List<Track>>>
-
-    suspend fun getTracks(): List<Track>
 }

@@ -51,7 +51,7 @@ class DefaultSavedTracksRepository @Inject constructor(
             }
         )
 
-    override suspend fun getTracks(): List<Track> {
+    private suspend fun getTracks(): List<Track> {
         val tracks = mutableListOf<Track>()
         var offset = 0
         val limit = 20
