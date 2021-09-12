@@ -3,30 +3,32 @@ package com.sweak.spotifylibraryfeatures.data.repository
 import androidx.room.withTransaction
 import com.sweak.spotifylibraryfeatures.data.api.SpotifyApi
 import com.sweak.spotifylibraryfeatures.data.database.Database
+import com.sweak.spotifylibraryfeatures.data.database.SavedTracksDao
 import com.sweak.spotifylibraryfeatures.data.database.entity.Track
 import com.sweak.spotifylibraryfeatures.util.Preferences
 import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_EXPIRY_DATE_KEY
 import com.sweak.spotifylibraryfeatures.util.Resource
 import com.sweak.spotifylibraryfeatures.util.networkBoundResource
 import com.sweak.spotifylibraryfeatures.util.parseSavedTracksBatch
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.Flow
 import java.util.*
 import javax.inject.Inject
 
 class SavedTracksRepository @Inject constructor(
-    private val api: SpotifyApi,
     private val db: Database,
+    private val api: SpotifyApi,
+    private val dao: SavedTracksDao,
     private val preferences: Preferences
 ) {
 
-    private val savedTracksDao = db.savedTracksDao()
-
+    @ExperimentalCoroutinesApi
     fun getSavedTracks(
         forceRefresh: Boolean
     ): Flow<Resource<List<Track>>> =
         networkBoundResource(
             query = {
-                savedTracksDao.getAllTracks()
+                dao.getAllTracks()
             },
             fetch = {
                 val tracks = getTracks()
@@ -34,8 +36,8 @@ class SavedTracksRepository @Inject constructor(
             },
             saveFetchResult = { tracks ->
                 db.withTransaction {
-                    savedTracksDao.deleteAllTracks()
-                    savedTracksDao.insertTracks(tracks)
+                    dao.deleteAllTracks()
+                    dao.insertTracks(tracks)
                 }
             },
             shouldFetch = {

@@ -3,6 +3,7 @@ package com.sweak.spotifylibraryfeatures.data.repository
 import androidx.room.withTransaction
 import com.sweak.spotifylibraryfeatures.data.api.SpotifyApi
 import com.sweak.spotifylibraryfeatures.data.database.Database
+import com.sweak.spotifylibraryfeatures.data.database.TrackFeaturesDao
 import com.sweak.spotifylibraryfeatures.data.database.entity.Track
 import com.sweak.spotifylibraryfeatures.data.database.entity.TrackFeatures
 import com.sweak.spotifylibraryfeatures.util.Preferences
@@ -15,13 +16,12 @@ import javax.inject.Inject
 class FeaturesRepository @Inject constructor(
     private val db: Database,
     private val api: SpotifyApi,
+    private val dao: TrackFeaturesDao,
     private val preferences: Preferences
 ) {
 
-    private val trackFeaturesDao = db.trackFeaturesDao()
-
     fun getTrackFeatures(id: String): Flow<List<TrackFeatures>> =
-        trackFeaturesDao.getTrackFeatures(id)
+        dao.getTrackFeatures(id)
 
     suspend fun saveTrackFeatures(tracks: List<Track>) {
         val trackIds = mutableListOf<String>()
@@ -51,8 +51,8 @@ class FeaturesRepository @Inject constructor(
         }
 
         db.withTransaction {
-            trackFeaturesDao.deleteAllTrackFeatures()
-            trackFeaturesDao.insertTrackFeatures(allTrackFeatures)
+            dao.deleteAllTrackFeatures()
+            dao.insertTrackFeatures(allTrackFeatures)
         }
     }
 }
