@@ -2,8 +2,8 @@ package com.sweak.spotifylibraryfeatures.features.main
 
 import androidx.lifecycle.*
 import com.sweak.spotifylibraryfeatures.data.database.entity.Track
-import com.sweak.spotifylibraryfeatures.data.repository.DefaultFeaturesRepository
-import com.sweak.spotifylibraryfeatures.data.repository.DefaultSavedTracksRepository
+import com.sweak.spotifylibraryfeatures.data.repository.FeaturesRepository
+import com.sweak.spotifylibraryfeatures.data.repository.SavedTracksRepository
 import com.sweak.spotifylibraryfeatures.util.Resource
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -14,8 +14,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
-    private val defaultSavedTracksRepository: DefaultSavedTracksRepository,
-    private val defaultFeaturesRepository: DefaultFeaturesRepository
+    private val savedTracksRepository: SavedTracksRepository,
+    private val featuresRepository: FeaturesRepository
 ) : ViewModel() {
 
     private val refreshTriggerChannel = Channel<Refresh>()
@@ -23,7 +23,7 @@ class MainViewModel @Inject constructor(
 
     @ExperimentalCoroutinesApi
     val savedTracks = refreshTrigger.flatMapLatest { refresh ->
-        val savedTracks = defaultSavedTracksRepository.getSavedTracks(refresh == Refresh.FORCE)
+        val savedTracks = savedTracksRepository.getSavedTracks(refresh == Refresh.FORCE)
         savedTracks
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
@@ -46,7 +46,7 @@ class MainViewModel @Inject constructor(
     }
 
     suspend fun saveTrackFeatures(tracks: List<Track>) {
-        defaultFeaturesRepository.saveTrackFeatures(tracks)
+        featuresRepository.saveTrackFeatures(tracks)
     }
 
     enum class Refresh {
