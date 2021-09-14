@@ -9,12 +9,12 @@ import javax.inject.Inject
 
 @HiltViewModel
 class FeaturesViewModel @Inject constructor(
-    private val defaultFeaturesRepository: FeaturesRepository
+    private val featuresRepository: FeaturesRepository
 ) : ViewModel() {
 
     lateinit var trackFeatures: Flow<List<TrackFeatures>>
 
     fun initializeTrackFeatures(trackId: String?) {
-        trackFeatures = defaultFeaturesRepository.getTrackFeatures(trackId!!)
+        trackFeatures = featuresRepository.getTrackFeatures(trackId!!)
     }
 }
