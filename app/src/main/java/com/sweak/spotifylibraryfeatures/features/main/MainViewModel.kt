@@ -13,6 +13,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
+@ExperimentalCoroutinesApi
 class MainViewModel @Inject constructor(
     private val savedTracksRepository: SavedTracksRepository,
     private val featuresRepository: FeaturesRepository
@@ -21,13 +22,11 @@ class MainViewModel @Inject constructor(
     private val refreshTriggerChannel = Channel<Refresh>()
     private val refreshTrigger = refreshTriggerChannel.receiveAsFlow()
 
-    @ExperimentalCoroutinesApi
     val savedTracks = refreshTrigger.flatMapLatest { refresh ->
         val savedTracks = savedTracksRepository.getSavedTracks(refresh == Refresh.FORCE)
         savedTracks
     }.stateIn(viewModelScope, SharingStarted.Lazily, null)
 
-    @ExperimentalCoroutinesApi
     fun onStart() {
         if (savedTracks.value !is Resource.Loading) {
             viewModelScope.launch {
@@ -36,7 +35,6 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    @ExperimentalCoroutinesApi
     fun onRefresh() {
         if (savedTracks.value !is Resource.Loading) {
             viewModelScope.launch {
