@@ -17,36 +17,38 @@ import com.sweak.spotifylibraryfeatures.R
 import com.sweak.spotifylibraryfeatures.databinding.ActivityMainBinding
 import com.sweak.spotifylibraryfeatures.features.login.LoginActivity
 import com.sweak.spotifylibraryfeatures.features.trackfeatures.FeaturesActivity
-import com.sweak.spotifylibraryfeatures.util.Preferences
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_ACCESS_TOKEN_KEY
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_EXPIRY_DATE_KEY
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_USER_REGISTERED_KEY
+import com.sweak.spotifylibraryfeatures.util.DataStoreManager
 import com.sweak.spotifylibraryfeatures.util.Resource
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
 import java.util.*
 import javax.inject.Inject
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class MainActivity : AppCompatActivity() {
 
     private val showLoginActivity = registerForActivityResult(
         ActivityResultContracts.StartActivityForResult()
     ) { result ->
         if (result.resultCode == RESULT_OK) {
-            preferences.putString(
-                PREFERENCES_ACCESS_TOKEN_KEY, result.data!!.getStringExtra(
-                    PREFERENCES_ACCESS_TOKEN_KEY
-                )!!
-            )
-            preferences.putLong(
-                PREFERENCES_EXPIRY_DATE_KEY, result.data!!.getLongExtra(
-                    PREFERENCES_EXPIRY_DATE_KEY, 0
+            runBlocking {
+                dataStoreManager.putString(
+                    DataStoreManager.ACCESS_TOKEN, result.data!!.getStringExtra(
+                        LoginActivity.ACCESS_TOKEN_KEY
+                    )!!
                 )
-            )
-            preferences.putBoolean(PREFERENCES_USER_REGISTERED_KEY, true)
+                dataStoreManager.putLong(
+                    DataStoreManager.EXPIRY_DATE, result.data!!.getLongExtra(
+                        LoginActivity.EXPIRY_DATE_KEY, 0
+                    )
+                )
+                dataStoreManager.putBoolean(DataStoreManager.USER_REGISTERED, true)
+            }
         } else {
             showErrorDialog()
         }
@@ -61,7 +63,7 @@ class MainActivity : AppCompatActivity() {
     )
 
     @Inject
-    lateinit var preferences: Preferences
+    lateinit var dataStoreManager: DataStoreManager
     private lateinit var binding: ActivityMainBinding
     private val viewModel: MainViewModel by viewModels()
 
@@ -87,7 +89,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @ExperimentalCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -112,7 +113,6 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    @ExperimentalCoroutinesApi
     private fun startCollectingFromViewModel() {
         lifecycleScope.launchWhenStarted {
             viewModel.savedTracks.collect {
@@ -138,7 +138,11 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun showLoginActivityIfNeeded() {
-        if (!preferences.getBoolean(PREFERENCES_USER_REGISTERED_KEY)) {
+        val isUserRegistered = runBlocking {
+            dataStoreManager.getBoolean(DataStoreManager.USER_REGISTERED).first()
+        }
+
+        if (!isUserRegistered) {
             val intent = Intent(this, LoginActivity::class.java)
             showLoginActivity.launch(intent)
         }
@@ -162,7 +166,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun shouldReauthorize(): Boolean {
         val currentDate = Calendar.getInstance().time.time
-        val expiryDate = preferences.getLong(PREFERENCES_EXPIRY_DATE_KEY)
+        val expiryDate = runBlocking {
+            dataStoreManager.getLong(DataStoreManager.EXPIRY_DATE).first()
+        }
         return currentDate >= expiryDate
     }
 
@@ -173,7 +179,9 @@ class MainActivity : AppCompatActivity() {
         dialog.setCanceledOnTouchOutside(true)
 
         dialog.findViewById<Button>(R.id.button_authorize).setOnClickListener {
-            preferences.putBoolean(PREFERENCES_USER_REGISTERED_KEY, false)
+            runBlocking {
+                dataStoreManager.putBoolean(DataStoreManager.USER_REGISTERED, false)
+            }
             showLoginActivityIfNeeded()
             dialog.dismiss()
             viewModel.onRefresh()

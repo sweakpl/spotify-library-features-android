@@ -6,8 +6,11 @@ import com.sweak.spotifylibraryfeatures.data.database.Database
 import com.sweak.spotifylibraryfeatures.data.database.TrackFeaturesDao
 import com.sweak.spotifylibraryfeatures.data.database.entity.Track
 import com.sweak.spotifylibraryfeatures.data.database.entity.TrackFeatures
-import com.sweak.spotifylibraryfeatures.util.Preferences
+import com.sweak.spotifylibraryfeatures.util.DataStoreManager
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 import retrofit2.HttpException
 import java.io.IOException
 import java.lang.Exception
@@ -17,7 +20,7 @@ class DefaultFeaturesRepository @Inject constructor(
     private val db: Database,
     private val api: SpotifyApi,
     private val dao: TrackFeaturesDao,
-    private val preferences: Preferences
+    private val dataStoreManager: DataStoreManager
 ) : FeaturesRepository {
 
     override fun getTrackFeatures(id: String): Flow<List<TrackFeatures>> =
@@ -36,9 +39,17 @@ class DefaultFeaturesRepository @Inject constructor(
             val trackIdsString = chunkedTrackIds.joinToString(",")
 
             try {
+                var accessToken = DataStoreManager.PREFERENCES_DEFAULT_STRING
+                coroutineScope {
+                    val tokenJob = launch {
+                        accessToken =
+                            dataStoreManager.getString(DataStoreManager.ACCESS_TOKEN).first()
+                    }
+                    tokenJob.join()
+                }
                 allTrackFeatures.addAll(
                     api.getTrackFeatures(
-                        "Bearer ${preferences.getString(Preferences.PREFERENCES_ACCESS_TOKEN_KEY)}",
+                        "Bearer $accessToken",
                         trackIdsString
                     ).items
                 )

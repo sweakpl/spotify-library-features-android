@@ -8,7 +8,7 @@ import com.sweak.spotifylibraryfeatures.data.repository.DefaultFeaturesRepositor
 import com.sweak.spotifylibraryfeatures.data.repository.DefaultSavedTracksRepository
 import com.sweak.spotifylibraryfeatures.data.repository.FeaturesRepository
 import com.sweak.spotifylibraryfeatures.data.repository.SavedTracksRepository
-import com.sweak.spotifylibraryfeatures.util.Preferences
+import com.sweak.spotifylibraryfeatures.util.DataStoreManager
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -25,9 +25,9 @@ object RepositoryModule {
         db: Database,
         api: SpotifyApi,
         dao: TrackFeaturesDao,
-        preferences: Preferences
+        dataStoreManager: DataStoreManager
     ): FeaturesRepository =
-        DefaultFeaturesRepository(db, api, dao, preferences)
+        DefaultFeaturesRepository(db, api, dao, dataStoreManager)
 
     @Provides
     @Singleton
@@ -35,7 +35,7 @@ object RepositoryModule {
         db: Database,
         api: SpotifyApi,
         dao: SavedTracksDao,
-        preferences: Preferences
+        dataStoreManager: DataStoreManager
     ): SavedTracksRepository =
-        DefaultSavedTracksRepository(db, api, dao, preferences)
+        DefaultSavedTracksRepository(db, api, dao, dataStoreManager)
 }

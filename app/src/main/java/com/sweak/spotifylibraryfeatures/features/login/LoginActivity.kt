@@ -13,8 +13,6 @@ import com.spotify.sdk.android.auth.AuthorizationClient
 import com.spotify.sdk.android.auth.AuthorizationResponse
 import com.sweak.spotifylibraryfeatures.R
 import com.sweak.spotifylibraryfeatures.databinding.ActivityLoginBinding
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_ACCESS_TOKEN_KEY
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_EXPIRY_DATE_KEY
 import java.util.*
 
 class LoginActivity : AppCompatActivity() {
@@ -50,8 +48,8 @@ class LoginActivity : AppCompatActivity() {
                 val token = authorizationResponse.accessToken
                 val expiryDate = parseIntoExpiryDate(authorizationResponse.expiresIn)
 
-                data.putExtra(PREFERENCES_ACCESS_TOKEN_KEY, token)
-                data.putExtra(PREFERENCES_EXPIRY_DATE_KEY, expiryDate)
+                data.putExtra(ACCESS_TOKEN_KEY, token)
+                data.putExtra(EXPIRY_DATE_KEY, expiryDate)
                 setResult(RESULT_OK, data)
                 finish()
             }
@@ -107,5 +105,10 @@ class LoginActivity : AppCompatActivity() {
 
         if (isFinishing)
             finishAffinity()
+    }
+
+    companion object {
+        const val ACCESS_TOKEN_KEY = "accessToken"
+        const val EXPIRY_DATE_KEY = "expiryDate"
     }
 }

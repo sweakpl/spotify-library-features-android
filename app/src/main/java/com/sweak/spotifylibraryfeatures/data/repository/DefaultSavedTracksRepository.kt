@@ -5,13 +5,10 @@ import com.sweak.spotifylibraryfeatures.data.api.SpotifyApi
 import com.sweak.spotifylibraryfeatures.data.database.Database
 import com.sweak.spotifylibraryfeatures.data.database.SavedTracksDao
 import com.sweak.spotifylibraryfeatures.data.database.entity.Track
-import com.sweak.spotifylibraryfeatures.util.Preferences
-import com.sweak.spotifylibraryfeatures.util.Preferences.Companion.PREFERENCES_EXPIRY_DATE_KEY
-import com.sweak.spotifylibraryfeatures.util.Resource
-import com.sweak.spotifylibraryfeatures.util.networkBoundResource
-import com.sweak.spotifylibraryfeatures.util.parseSavedTracksBatch
-import kotlinx.coroutines.ExperimentalCoroutinesApi
+import com.sweak.spotifylibraryfeatures.util.*
+import kotlinx.coroutines.*
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.first
 import java.util.*
 import javax.inject.Inject
 
@@ -19,7 +16,7 @@ class DefaultSavedTracksRepository @Inject constructor(
     private val db: Database,
     private val api: SpotifyApi,
     private val dao: SavedTracksDao,
-    private val preferences: Preferences
+    private val dataStoreManager: DataStoreManager
 ) : SavedTracksRepository {
 
     @ExperimentalCoroutinesApi
@@ -45,7 +42,9 @@ class DefaultSavedTracksRepository @Inject constructor(
                     true
                 else {
                     val currentDate = Calendar.getInstance().time.time
-                    val expiryDate = preferences.getLong(PREFERENCES_EXPIRY_DATE_KEY)
+                    val expiryDate = runBlocking {
+                        dataStoreManager.getLong(DataStoreManager.EXPIRY_DATE).first()
+                    }
                     currentDate < expiryDate
                 }
             }
@@ -57,8 +56,15 @@ class DefaultSavedTracksRepository @Inject constructor(
         val limit = 20
 
         do {
+            var accessToken = DataStoreManager.PREFERENCES_DEFAULT_STRING
+            coroutineScope {
+                val tokenJob = launch {
+                    accessToken = dataStoreManager.getString(DataStoreManager.ACCESS_TOKEN).first()
+                }
+                tokenJob.join()
+            }
             val tracksBatch = api.getSavedTracks(
-                "Bearer ${preferences.getString(Preferences.PREFERENCES_ACCESS_TOKEN_KEY)}",
+                "Bearer $accessToken",
                 offset, limit
             )
             tracks.addAll(parseSavedTracksBatch(tracksBatch))

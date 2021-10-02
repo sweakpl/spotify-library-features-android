@@ -17,10 +17,12 @@ import com.sweak.spotifylibraryfeatures.features.main.MainActivity.Companion.TRA
 import com.sweak.spotifylibraryfeatures.features.main.MainActivity.Companion.TRACK_ID_KEY
 import com.sweak.spotifylibraryfeatures.features.main.MainActivity.Companion.TRACK_NAME_KEY
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.collect
 import kotlin.math.roundToInt
 
 @AndroidEntryPoint
+@ExperimentalCoroutinesApi
 class FeaturesActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFeaturesBinding
