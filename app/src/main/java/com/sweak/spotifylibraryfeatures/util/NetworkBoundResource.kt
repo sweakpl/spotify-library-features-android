@@ -16,7 +16,7 @@ inline fun <ResultType, RequestType> networkBoundResource(
 
     if (shouldFetch(data)) {
         val loading = launch {
-            query().collect { send(Resource.Loading(data)) }
+            query().collect { send(Resource.Loading(it)) }
         }
 
         try {
